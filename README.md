@@ -201,4 +201,4 @@ templates/      Türkçe arayüz şablonları
   (Windows'ta bu sürüm kaynaktan derlenebilir ve kurulum birkaç dakika sürebilir). PCM WAV dosyaları PyAV'ye ihtiyaç duymaz.
 - Birleştirilmiş bölümler tek satır olarak görünür (geride kalındığında); zaman damgası ilk bölümün başlangıcıdır.
 
-Ders: YZM 4105 Sosyal Sorumluluk Projesi
+
