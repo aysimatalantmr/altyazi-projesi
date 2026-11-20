@@ -1,0 +1,37 @@
+<section id="ayarlar-paneli" class="settings-panel" hidden aria-label="Görünüm ayarları">
+  <div class="setting">
+    <span class="setting-label" id="lbl-boyut">Yazı boyutu</span>
+    <div class="setting-row" role="group" aria-labelledby="lbl-boyut">
+      <button type="button" class="btn" id="ayar-kucult" aria-label="Yazıyı küçült">A−</button>
+      <output id="ayar-boyut-deger" aria-live="polite">40 px</output>
+      <button type="button" class="btn" id="ayar-buyut" aria-label="Yazıyı büyüt">A+</button>
+    </div>
+  </div>
+  <div class="setting">
+    <span class="setting-label" id="lbl-tema">Tema</span>
+    <div class="setting-row" role="group" aria-labelledby="lbl-tema">
+      <button type="button" class="btn theme-swatch swatch-koyu" data-ayar-tema="koyu" aria-pressed="true">Siyah zemin, beyaz yazı</button>
+      <button type="button" class="btn theme-swatch swatch-sari" data-ayar-tema="sari" aria-pressed="false">Siyah zemin, sarı yazı</button>
+      <button type="button" class="btn theme-swatch swatch-acik" data-ayar-tema="acik" aria-pressed="false">Açık tema</button>
+    </div>
+  </div>
+  <div class="setting">
+    <label class="setting-label" for="ayar-aralik">Satır aralığı</label>
+    <input type="range" id="ayar-aralik" min="1.1" max="2.2" step="0.1" value="1.4">
+  </div>
+  <div class="setting">
+    <label class="setting-label" for="ayar-font">Yazı tipi</label>
+    <select id="ayar-font">
+      <option value="sistem">Sistem yazı tipi</option>
+      <option value="okunakli">Okunaklı (Verdana / Tahoma)</option>
+      <option value="mono">Eşit aralıklı</option>
+    </select>
+  </div>
+  <div class="setting setting-checks">
+    <label><input type="checkbox" id="ayar-kismi" checked> Kesinleşmemiş (gri) metni göster</label>
+    <label><input type="checkbox" id="ayar-kartlar" checked> Terim kartlarını göster</label>
+  </div>
+  <div class="setting">
+    <button type="button" class="btn btn-ghost" id="ayar-sifirla">Varsayılana dön</button>
+  </div>
+</section>

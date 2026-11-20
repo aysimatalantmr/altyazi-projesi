@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ session.title }} — Konuşmacı{% endblock %}
+{% block content %}
+<div id="konusmaci" class="speaker" data-room-code="{{ session.room_code }}"
+     data-worklet-url="{% static 'js/pcm-worklet.js' %}" data-chunk-ms="320">
+  <div class="speaker-head">
+    <div>
+      <p class="eyebrow">{{ session.domain.name }}</p>
+      <h1>{{ session.title }}</h1>
+      <p>
+        <span id="oturum-durumu" class="pill" data-status="{{ session.status }}">{{ session.get_status_display }}</span>
+        <span id="baglanti-durumu" class="conn" role="status">Bağlanıyor…</span>
+      </p>
+    </div>
+    <div class="room-code-box">
+      <span class="room-code-label">Oda kodu</span>
+      <span class="room-code">{{ session.room_code }}</span>
+      <a href="{{ student_url }}" target="_blank" rel="noopener">{{ student_url }}</a>
+      <button type="button" class="btn btn-small" id="btn-kopyala" data-copy="{{ student_url }}">Bağlantıyı kopyala</button>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button type="button" class="btn btn-primary btn-lg" id="btn-baslat">● Başlat</button>
+    <button type="button" class="btn btn-danger btn-lg" id="btn-durdur" disabled>■ Durdur</button>
+    <label class="mic-select">Mikrofon
+      <select id="mikrofon"><option value="">Varsayılan mikrofon</option></select>
+    </label>
+    <label class="meter-label">Ses seviyesi
+      <meter id="ses-seviyesi" min="0" max="1" low="0.15" high="0.85" optimum="0.5" value="0"></meter>
+    </label>
+  </div>
+  <p id="bilgi" class="hint" role="status"></p>
+  <p id="hata" class="form-error" role="alert" hidden></p>
+  {% if not partials %}<p class="hint">Kısmi (gri) altyazı kapalı: metin her cümle bitiminde görünür (ASR_PARTIALS=false).</p>{% endif %}
+
+  <h2 class="section-title">Canlı önizleme</h2>
+  <section id="altyazi" class="captions captions-preview" aria-label="Altyazı önizlemesi">
+    <div class="caption-scroll">
+      <div class="caption-final"></div>
+      <p class="caption-partial"></p>
+    </div>
+  </section>
+  <p class="actions-row">
+    <a class="btn" href="{% url 'lectures:transcript_txt' session.room_code %}" download>Transkripti indir (TXT)</a>
+    <a class="btn btn-ghost" href="{% url 'lectures:speaker_dashboard' %}">← Oturumlarım</a>
+  </p>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/captions.js' %}"></script>
+<script src="{% static 'js/speaker.js' %}"></script>
+{% endblock %}

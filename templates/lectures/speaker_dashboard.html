@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Oturumlarım — Akademik Altyazı{% endblock %}
+{% block content %}
+<h1>Oturumlarım</h1>
+<div class="two-col">
+  <section class="panel">
+    <h2>Yeni oturum</h2>
+    <form method="post" class="stack-form">
+      {% csrf_token %}
+      {% for field in form %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% for e in field.errors %}<p class="form-error">{{ e }}</p>{% endfor %}
+      {% endfor %}
+      {% if not form.fields.domain.queryset.exists %}
+        <p class="form-error">Henüz alan tanımlı değil. Önce yönetim panelinden alan ve terim ekleyin
+          ya da <code>python manage.py loaddata bilgisayar_muhendisligi</code> komutunu çalıştırın.</p>
+      {% endif %}
+      <button type="submit" class="btn btn-primary">Oturum oluştur</button>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h2>Geçmiş oturumlar</h2>
+    {% if sessions %}
+      <table class="table">
+        <thead><tr><th>Başlık</th><th>Kod</th><th>Durum</th><th>Tarih</th><th></th></tr></thead>
+        <tbody>
+        {% for s in sessions %}
+          <tr>
+            <td><a href="{% url 'lectures:speaker_room' s.room_code %}">{{ s.title }}</a><br><small>{{ s.domain.name }}</small></td>
+            <td><code>{{ s.room_code }}</code></td>
+            <td><span class="pill" data-status="{{ s.status }}">{{ s.get_status_display }}</span></td>
+            <td>{{ s.created_at|date:"d.m.Y H:i" }}</td>
+            <td><a href="{% url 'lectures:transcript_txt' s.room_code %}">TXT</a></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>Henüz oturum yok.</p>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

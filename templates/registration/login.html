@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Konuşmacı girişi — Akademik Altyazı{% endblock %}
+{% block content %}
+<section class="panel narrow">
+  <h1>Konuşmacı girişi</h1>
+  <p>Öğrenciler giriş yapmadan, yalnızca oda koduyla katılır.</p>
+  <form method="post" class="stack-form">
+    {% csrf_token %}
+    {% if form.non_field_errors %}<p class="form-error" role="alert">Kullanıcı adı veya parola hatalı.</p>{% endif %}
+    <label for="id_username">Kullanıcı adı</label>
+    {{ form.username }}
+    <label for="id_password">Parola</label>
+    {{ form.password }}
+    <input type="hidden" name="next" value="{{ next }}">
+    <button type="submit" class="btn btn-primary">Giriş yap</button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Derse katıl — Akademik Altyazı{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Derse katıl</h1>
+  <p class="lead">Öğretim üyesinin paylaştığı <strong>oda kodunu</strong> girin. Ders anlatımı canlı altyazıya dönüşür;
+    geçen akademik terimlerin sade açıklamaları yanda kart olarak görünür.</p>
+
+  <form method="get" class="join-form" novalidate>
+    <label for="{{ form.room_code.id_for_label }}">{{ form.room_code.label }}</label>
+    <div class="join-row">
+      {{ form.room_code }}
+      <button type="submit" class="btn btn-primary btn-lg">Katıl</button>
+    </div>
+    {% if form.room_code.errors %}
+      <p class="form-error" role="alert">{{ form.room_code.errors.0 }}</p>
+    {% endif %}
+  </form>
+</section>
+
+<section class="features" aria-label="Özellikler">
+  <div class="feature"><h2>Büyük, yüksek kontrastlı altyazı</h2><p>Yazı boyutunu ve temayı “Görünüm” menüsünden ayarlayın.</p></div>
+  <div class="feature"><h2>Terim kartları</h2><p>Tanım, görsel ve varsa Türk İşaret Dili videosu.</p></div>
+  <div class="feature"><h2>Transkripti indirin</h2><p>Ders sonunda tüm metni TXT olarak kaydedin.</p></div>
+</section>
+{% endblock %}

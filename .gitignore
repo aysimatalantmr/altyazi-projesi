@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Sanal ortam
+venv/
+.venv/
+env/
+
+# Gizli ayarlar
+.env
+
+# Django
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# Model önbellekleri (Whisper, Silero VAD, Hugging Face)
+models/
+.cache/
+huggingface/
+*.onnx
+*.part
+
+# Demo ses dosyaları
+demo_audio/
+
+# Editör / işletim sistemi
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

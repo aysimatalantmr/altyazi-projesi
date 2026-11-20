@@ -1,0 +1,46 @@
+{% load static %}<!doctype html>
+<html lang="tr" data-theme="koyu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Akademik Altyazı{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <script src="{% static 'js/a11y.js' %}"></script>
+  {% block head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  <a class="skip-link" href="#icerik">İçeriğe geç</a>
+  <header class="topbar">
+    <a class="brand" href="{% url 'lectures:home' %}">
+      <span class="brand-mark" aria-hidden="true">CC</span>
+      <span>Akademik Altyazı</span>
+    </a>
+    <nav class="topnav" aria-label="Ana menü">
+      {% block nav_extra %}{% endblock %}
+      {% if user.is_authenticated %}
+        <a href="{% url 'lectures:speaker_dashboard' %}">Oturumlarım</a>
+        {% if user.is_staff %}<a href="{% url 'admin:index' %}">Sözlük yönetimi</a>{% endif %}
+        <form method="post" action="{% url 'logout' %}" class="inline-form">
+          {% csrf_token %}<button type="submit" class="link-button">Çıkış</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}">Konuşmacı girişi</a>
+      {% endif %}
+      <button type="button" class="btn btn-ghost" aria-expanded="false" aria-controls="ayarlar-paneli"
+              onclick="const p=document.getElementById('ayarlar-paneli');p.hidden=!p.hidden;this.setAttribute('aria-expanded',String(!p.hidden));">
+        <span aria-hidden="true">⚙</span> Görünüm
+      </button>
+    </nav>
+  </header>
+
+  {% include "partials/settings_panel.html" %}
+
+  <main id="icerik" class="{% block main_class %}page{% endblock %}">
+    {% if messages %}
+      <ul class="messages">{% for m in messages %}<li class="msg-{{ m.tags }}">{{ m }}</li>{% endfor %}</ul>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

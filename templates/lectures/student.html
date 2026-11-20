@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ session.title }} — Canlı altyazı{% endblock %}
+{% block body_class %}live-page{% endblock %}
+{% block main_class %}live{% endblock %}
+{% block content %}
+<div id="ogrenci" class="live-layout" data-room-code="{{ session.room_code }}">
+  <div class="live-head">
+    <div>
+      <h1 class="live-title">{{ session.title }}</h1>
+      <p class="live-meta">
+        {{ session.domain.name }} · Oda <strong>{{ session.room_code }}</strong> ·
+        <span id="oturum-durumu" class="pill" data-status="{{ session.status }}">{{ session.get_status_display }}</span>
+        <span id="baglanti-durumu" class="conn" role="status">Bağlanıyor…</span>
+      </p>
+    </div>
+    <a class="btn" href="{% url 'lectures:transcript_txt' session.room_code %}" download>Transkripti indir (TXT)</a>
+  </div>
+
+  <section id="altyazi" class="captions" aria-label="Canlı altyazı">
+    <div class="caption-scroll">
+      <div class="caption-final" aria-live="polite" aria-relevant="additions"></div>
+      <p class="caption-partial" aria-hidden="true"></p>
+    </div>
+  </section>
+
+  <aside class="cards" aria-label="Tespit edilen terimler">
+    <h2 class="cards-title">Terimler</h2>
+    <p id="kart-bos" class="cards-empty">Derste bir terim geçtiğinde açıklaması burada görünecek.</p>
+    <div id="kart-listesi" class="cards-list"></div>
+  </aside>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/captions.js' %}"></script>
+<script src="{% static 'js/student.js' %}"></script>
+{% endblock %}
